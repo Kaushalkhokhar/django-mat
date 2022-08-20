@@ -1,0 +1,7 @@
+**/data
+**/.envs
+
+# Files
+*.swp
+tags
+
