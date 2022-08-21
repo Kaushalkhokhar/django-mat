@@ -6,24 +6,20 @@ services:
     image: postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    env_file:
+      - ./.envs/.postgres
     networks:
       - django-net
   web:
     container_name: django-web
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: /start
     volumes:
       - .:/django-base
     ports:
       - "8000:8000"
-    environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    env_file:
+      - ./.envs/.django
     depends_on:
       - db
     networks:
