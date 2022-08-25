@@ -6,10 +6,10 @@ User = get_user_model()
 
 class CustomBaseModelManager(models.Manager):
     def soft_delete(self, id, *args, **kwargs):
-        return super().get_queryset().filter(pk__id=id).update(is_deleted=True)
+        return super().get_queryset().filter(pk=id).update(is_deleted=True)
 
     def soft_deletes(self, ids, *args, **kwargs):
-        return super().get_queryset().filter(pk__id=ids).update(is_deleted=True)
+        return super().get_queryset().filter(pk__in=ids).update(is_deleted=True)
 
 class BaseModel(mdoels.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
